@@ -78,6 +78,31 @@ LinkedNode* reverse_single_linked_list_by_three_pointer(LinkedNode* pNode)
     return prev;
 }
 
+// 使用头插法来逆序链表
+LinkedNode* reverse_single_linked_list_by_headInsert(LinkedNode* head)
+{
+    LinkedNode* tmpHeadNode = (LinkedNode*)malloc(sizeof(LinkedNode));
+    tmpHeadNode->next = NULL;
+
+    LinkedNode* curr = head;
+    LinkedNode* next = NULL;
+
+    while (curr != NULL)
+    {
+        // 1.保存下一个节点
+        next = curr->next;
+
+        // 2.头插法
+        curr->next = tmpHeadNode->next;
+        tmpHeadNode->next = curr;
+
+        // 3.重新赋值curr
+        curr = next;
+    }
+
+    return tmpHeadNode->next;
+}
+
 int main()
 {
     LinkedNode* pNode = initSingleLinkedList();
@@ -85,6 +110,9 @@ int main()
 
     LinkedNode* p = reverse_single_linked_list_by_three_pointer(pNode);
     printSingleLinkedList(p);
+
+    LinkedNode* p1 = reverse_single_linked_list_by_headInsert(p);
+    printSingleLinkedList(p1);
 
     destorySingleLinkedList(pNode);
     return 0;

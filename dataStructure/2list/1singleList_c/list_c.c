@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+
 Node* createList()
 {
     Node *head = (Node*)malloc(sizeof(Node));
@@ -11,8 +12,10 @@ Node* createList()
         return NULL;
     }
     head->next = NULL;
+    
     return head;
 }
+
 void traverseList(Node* head)
 {
     head = head->next;
@@ -21,6 +24,7 @@ void traverseList(Node* head)
         head = head->next;
     }
 }
+
 int lenList(Node* head)
 {
     head = head->next;
@@ -31,6 +35,8 @@ int lenList(Node* head)
     }
     return len;
 }
+
+// 头插法
 void insertList(Node *head,int data)
 {
     Node *cur = (Node*)malloc(sizeof(Node));
@@ -43,35 +49,42 @@ void insertList(Node *head,int data)
     cur->next = head->next;
     head->next = cur;
 }
+
 Node* searchList(Node* head,int finddata)
 {
     head = head->next;
-    while (head) {
+    while (head) 
+    {
         if(head->data == finddata)
         {
             break;
         }
         head = head->next;
     }
+
     return head;
 }
-void deleteList(Node* head,Node *pfind)
+
+void deleteList(Node* head, Node *pfind)
 {
     if(NULL == pfind)
     {
-        while (head->next != pfind) {
+        while (head->next != pfind) 
+        {
             head = head->next;
         }
         head->next = pfind->next;
         free(pfind);
     }
-    else {
+    else 
+    {
         pfind->data = pfind->next->data;
         Node* t = pfind->next;
         pfind->next = pfind->next->next;
         free(t);
     }
 }
+
 void bubblesortList(Node* head)
 {
 
@@ -121,11 +134,12 @@ void bubblesortList(Node* head)
     }
     /*********swap pointer************/
 }
+
 void reverseList(Node* head)
 {
     Node *h = head->next;
     Node *t = NULL;
-    head->next = NULL;
+    head->next = NULL;  // 先把链表打断，再采用头插法，就能逆序链表
     while (h) {
         t = h->next;
 
@@ -135,6 +149,7 @@ void reverseList(Node* head)
         h = t;
     }
 }
+
 void destroyList(Node *head)
 {
     Node *t = NULL;
